@@ -13,5 +13,5 @@ app.use(cors());
 
 // Listening to the server
 app.listen(port, () => {
-  console.log(`Listening to server on port: http://localhost:${port}`);
+  console.log(`Listening to server on port: http://127.0.0.1:${port}`);
 });
