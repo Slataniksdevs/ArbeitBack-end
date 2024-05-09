@@ -1,4 +1,5 @@
 PRIMERAS PRUEBAS DE API EN NODE.JS
+
 Nueva rama para hacer pruebas. El proyecto usa una arquitectura de 3 capas para la estructura de carpetas, express como framework, base de datos MySQL
 
 COMUNICAIÓN DE MÓDULOS EN ARQUITECTURA DE 3 CAPAS
@@ -21,9 +22,11 @@ COMUNICAIÓN DE MÓDULOS EN ARQUITECTURA DE 3 CAPAS
    Este flujo garantiza una separación clara de responsabilidades y promueve la reutilización del código al permitir que los controladores, servicios y modelos sean independientes unos de otros. Además, facilita la mantenibilidad y la escalabilidad de la aplicación al hacer que cada componente sea más fácil de entender y modificar por separado
 
 CONFIGURACIÓN DE BASE DE DATOS MYSQL
+
 Crear archivo .env en la raiz del proyecto y crear las variables de entorno necesarias para conectar con la base de datos, ejemplo con datos por default de MySQL:
-HOST = '127.0.0.1'
-USER = 'root'
-PASSWORD = ''
-DB*PORT = '3306'
-DATABASE = '\_nombre de la base de datos*'
+
+   HOST = '127.0.0.1'
+   USER = 'root'
+   PASSWORD = ''
+   DB_PORT = '3306'
+   DATABASE = '\_nombre de la base de datos*'
