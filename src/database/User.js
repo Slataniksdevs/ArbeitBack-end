@@ -1,5 +1,29 @@
 const connection = require("./db");
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    User:
+ *      type: object
+ *      properties:
+ *        id:
+ *          type: int
+ *          example: 1
+ *        nombre:
+ *          type: string
+ *          example: Andres A
+ *        correo_electronico:
+ *          type: string
+ *          example: andres@gmail.com
+ *        contrasena:
+ *          type: string
+ *          example: 123456
+ *        tipo_usuario:
+ *          type: string
+ *          example: psicologo
+ */
+
 const getAllUsers = (callback) => {
   const sql = "SELECT * FROM usuarios";
   connection.query(sql, (err, results) => {

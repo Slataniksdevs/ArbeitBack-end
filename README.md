@@ -25,12 +25,12 @@ CONFIGURACIÓN DE BASE DE DATOS MYSQL
 
 Crear archivo .env en la raiz del proyecto y crear las variables de entorno necesarias para conectar con la base de datos, ejemplo con datos por default de MySQL:
 
-   HOST = '127.0.0.1'
-   
-   USER = 'root'
-   
-   PASSWORD = ''
-   
-   DB_PORT = '3306'
-   
-   DATABASE = '\_nombre de la base de datos*'
+HOST = '127.0.0.1'
+
+USER = 'root'
+
+PASSWORD = ''
+
+DB_PORT = '3306'
+
+DATABASE = '_nombre de la base de datos_'
