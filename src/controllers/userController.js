@@ -1,4 +1,5 @@
 const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const userService = require("../services/userServices");
 
 getAllUsers = (req, res) => {
@@ -67,10 +68,36 @@ updateOneUser = (req, res) => {
   });
 };
 
+login = async (req, res) => {
+  const userData = req.body;
+  userService.login(userData, (err, results) => {
+    if (err)
+      return res.status(500).json({ error: `Error de servidor: ${err}` });
+
+    if (
+      results.length === 0 ||
+      !bcryptjs.compare(userData.contrasena, results[0].contrasena)
+    ) {
+      return res
+        .status(404)
+        .json({ error: `Correo electrónico y/o contraseñas incorrectas` });
+    } else {
+      // Inicio de sesion OK, creamos el jwt
+      const { ID } = results[0];
+      const token = jwt.sign({ id: ID }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_TIME_EXPIRE,
+      });
+      res.json(results);
+      console.log(`TOKEN USER: ${token}`);
+    }
+  });
+};
+
 module.exports = {
   getAllUsers,
   createUser,
   deleteOneUser,
   getOneUser,
   updateOneUser,
+  login,
 };

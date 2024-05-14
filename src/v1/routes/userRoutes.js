@@ -47,6 +47,7 @@ router
   .post("/registrar", userController.createUser)
   .delete("/:userId", userController.deleteOneUser)
   .get("/:userId", userController.getOneUser)
-  .put("/:userId", userController.updateOneUser);
+  .put("/:userId", userController.updateOneUser)
+  .post("/login", userController.login);
 
 module.exports = router;

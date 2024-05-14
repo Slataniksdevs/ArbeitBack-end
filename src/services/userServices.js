@@ -40,10 +40,19 @@ const updateOneUser = (userId, updatedUser, callback) => {
   });
 };
 
+const login = (userData, callback) => {
+  User.login(userData, (err, results) => {
+    if (err) return callback(err);
+
+    callback(null, results);
+  });
+};
+
 module.exports = {
   getAllUsers,
   createUser,
   deleteOneUser,
   getOneUser,
   updateOneUser,
+  login,
 };
