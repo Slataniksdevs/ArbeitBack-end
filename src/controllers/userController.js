@@ -87,8 +87,17 @@ login = async (req, res) => {
       const token = jwt.sign({ id: ID }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_TIME_EXPIRE,
       });
-      res.json(results);
       console.log(`TOKEN USER: ${token}`);
+
+      const cookiesOptions = {
+        expires: new Date(
+          Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: true,
+      };
+      // Nombre de la cookie en el navegador
+      res.cookie("jwt", token, cookiesOptions);
+      res.json(results);
     }
   });
 };

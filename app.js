@@ -1,6 +1,7 @@
 require("dotenv").config(); // Obtener variables de entorno
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 // const dbConnection = require("./src/database/db");
 const v1UserRouter = require("./src/v1/routes/userRoutes");
 const { swaggerDocs: V1SwaggerDocs } = require("./src/v1/swagger");
@@ -14,6 +15,7 @@ const PORT = process.env.PORT ?? 3000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 // Rutas
 app.use("/api/v1/users", v1UserRouter);
