@@ -1,3 +1,4 @@
+const bcryptjs = require("bcryptjs");
 const userService = require("../services/userServices");
 
 getAllUsers = (req, res) => {
@@ -9,14 +10,20 @@ getAllUsers = (req, res) => {
   });
 };
 
-createUser = (req, res) => {
-  const userData = req.body;
-  userService.createUser(userData, (err, results) => {
-    if (err)
-      return res.status(500).json({ error: `Error de servidor: ${err}` });
+createUser = async (req, res) => {
+  try {
+    const userData = req.body;
+    // Encriptar la contraseña
+    userData.contrasena = await bcryptjs.hash(userData.contrasena, 8);
+    userService.createUser(userData, (err, results) => {
+      if (err)
+        return res.status(500).json({ error: `Error de servidor: ${err}` });
 
-    res.json(results);
-  });
+      res.json(results);
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 deleteOneUser = (req, res) => {
