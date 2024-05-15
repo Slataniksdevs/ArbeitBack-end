@@ -87,7 +87,6 @@ login = async (req, res) => {
       const token = jwt.sign({ id: ID }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_TIME_EXPIRE,
       });
-      console.log(`TOKEN USER: ${token}`);
 
       const cookiesOptions = {
         expires: new Date(
@@ -116,11 +115,15 @@ isAuth = async (req, res, next) => {
       });
     } catch (error) {
       console.error(error);
-      return next();
     }
   } else {
     res.json({ message: "Debes iniciar sesión" });
   }
+};
+
+logout = (req, res) => {
+  res.clearCookie("jwt");
+  return res.json({ message: "Se cerró la sesión exiotosamente" });
 };
 
 module.exports = {
@@ -131,4 +134,5 @@ module.exports = {
   updateOneUser,
   login,
   isAuth,
+  logout,
 };

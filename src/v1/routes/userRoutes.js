@@ -46,6 +46,7 @@ router
   .get("/", userController.isAuth, userController.getAllUsers)
   .post("/registrar", userController.createUser)
   .delete("/:userId", userController.deleteOneUser)
+  .get("/logout", userController.logout) //Tiene que ir en este orden, de lo contrario no funciona
   .get("/:userId", userController.getOneUser)
   .put("/:userId", userController.updateOneUser)
   .post("/login", userController.login);

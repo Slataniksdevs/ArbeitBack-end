@@ -16,6 +16,12 @@ const PORT = process.env.PORT ?? 3000;
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+// Para eliminar el cache y no se pueda volver con el botón back luego de hacer logout
+/* app.use(function(req, res, next) {
+  if(!req.user)
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate')
+  next()
+}) */
 
 // Rutas
 app.use("/api/v1/users", v1UserRouter);
