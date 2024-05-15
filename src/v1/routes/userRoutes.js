@@ -43,7 +43,7 @@ const router = express.Router();
  */
 
 router
-  .get("/", userController.getAllUsers)
+  .get("/", userController.isAuth, userController.getAllUsers)
   .post("/registrar", userController.createUser)
   .delete("/:userId", userController.deleteOneUser)
   .get("/:userId", userController.getOneUser)

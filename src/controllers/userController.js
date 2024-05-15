@@ -102,6 +102,27 @@ login = async (req, res) => {
   });
 };
 
+isAuth = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      const decodificada = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET);
+
+      userService.getOneUser(decodificada.id, (err, results) => {
+        if (!results) return next();
+
+        req.user = results[0];
+        console.log(req.user);
+        return next();
+      });
+    } catch (error) {
+      console.error(error);
+      return next();
+    }
+  } else {
+    res.json({ message: "Debes iniciar sesión" });
+  }
+};
+
 module.exports = {
   getAllUsers,
   createUser,
@@ -109,4 +130,5 @@ module.exports = {
   getOneUser,
   updateOneUser,
   login,
+  isAuth,
 };
