@@ -2,7 +2,7 @@ require("dotenv").config(); // Obtener variables de entorno
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const v1UserRouter = require("./routes/usersRoutes");
+const v1UserRouter = require("./src/v1/routes/userRoutes");
 
 // Crear servidor
 const app = express();

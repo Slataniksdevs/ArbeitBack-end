@@ -1,19 +1,15 @@
+const userService = require("../services/userServices");
 const controller = {};
 
-controller.getAll = (req, res) => {
-  req.getConnection((err, conn) => {
-    if (err) return res.json(err);
+controller.getAllUsers = (req, res) => {
+  userService.getAllUsers((err, result) => {
+    if (err)
+      return res.status(500).json({ error: `Error de servidor: ${err}` });
 
-    const query = "SELECT * FROM usuarios";
-    conn.query(query, (err, result) => {
-      if (err) return res.json(err);
-
-      console.log(result);
-      res.json(result);
-    });
+    res.json(result);
   });
 };
-
+/* 
 controller.create = (req, res) => {
   const newUser = req.body;
   req.getConnection((err, conn) => {
@@ -100,6 +96,6 @@ controller.update = (req, res) => {
       });
     });
   });
-};
+}; */
 
 module.exports = controller;
