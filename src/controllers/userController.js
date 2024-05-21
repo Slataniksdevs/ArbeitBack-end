@@ -1,36 +1,31 @@
-const userService = require("../services/userServices");
-const controller = {};
+const bcryptjs = require("bcryptjs");
+const userService = require("../services/userService");
 
-controller.getAllUsers = (req, res) => {
-  userService.getAllUsers((err, result) => {
-    if (err)
-      return res.status(500).json({ error: `Error de servidor: ${err}` });
-
-    res.json(result);
-  });
+const getAllUsers = async (req, res, next) => {
+  try {
+    const allUsers = await userService.getAllUsers();
+    res.json(allUsers);
+  } catch (error) {
+    next(error);
+  }
 };
-/* 
-controller.create = (req, res) => {
+
+const registerUser = async (req, res) => {
   const newUser = req.body;
-  req.getConnection((err, conn) => {
-    if (err) return res.json(err);
+  // Encriptar la contraseña
+  newUser.contrasena = bcryptjs.hashSync(newUser.contrasena, 8);
+  try {
+    const result = await userService.registerUser(newUser);
 
-    const query = "INSERT INTO usuarios SET ?";
-    conn.query(query, [newUser], (err, result) => {
-      if (err) {
-        res.status(500).json({ error: "Error al crear usuario" });
-        return;
-      }
-
-      console.log(result);
-      res.status(201).json({
-        message: "Usuario creado correctamente",
-        idUser: result.ID,
-      });
+    res.status(201).json({
+      message: "Usuario creado correctamente",
+      idUser: result.insertId,
     });
-  });
+  } catch (error) {
+    next(error);
+  }
 };
-
+/*
 controller.delete = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
@@ -98,4 +93,7 @@ controller.update = (req, res) => {
   });
 }; */
 
-module.exports = controller;
+module.exports = {
+  getAllUsers,
+  registerUser,
+};
