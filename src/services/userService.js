@@ -16,6 +16,17 @@ const registerUser = async (newUser) => {
   }
 };
 
+const getOneUser = async (userId) => {
+  try {
+    const result = await User.getOneUser(userId);
+    if (result.length === 0) throw new Error(`No se encontró el usuario`);
+
+    return result;
+  } catch (error) {
+    throw new Error(`Error al obtener datos del usuario: ${error.message}`);
+  }
+};
+
 // Autenticación de usuario
 const findByEmail = async (userData) => {
   try {
@@ -29,4 +40,5 @@ module.exports = {
   getAllUsers,
   registerUser,
   findByEmail,
+  getOneUser,
 };
