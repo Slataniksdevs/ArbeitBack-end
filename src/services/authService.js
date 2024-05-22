@@ -23,6 +23,19 @@ const login = async (userData) => {
   }
 };
 
+const verifyToken = async (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Obtener el usuario asociado al token
+    const user = await userService.getOneUser(decoded.id);
+    return user;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 module.exports = {
   login,
+  verifyToken,
 };
