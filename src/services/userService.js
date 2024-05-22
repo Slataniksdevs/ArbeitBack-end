@@ -16,7 +16,17 @@ const registerUser = async (newUser) => {
   }
 };
 
+// Autenticación de usuario
+const findByEmail = async (userData) => {
+  try {
+    return await User.findByEmail(userData);
+  } catch (error) {
+    throw new Error(`Error al iniciar sesión: ${error.message}`);
+  }
+};
+
 module.exports = {
   getAllUsers,
   registerUser,
+  findByEmail,
 };

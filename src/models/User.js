@@ -26,7 +26,21 @@ const registerUser = async (newUser) => {
   });
 };
 
+// Autenticación de usuario
+const findByEmail = async (userData) => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT * FROM usuarios WHERE correo_electronico = ?";
+
+    connection.query(query, [userData.correo_electronico], (err, result) => {
+      if (err) return reject(err);
+
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   getAllUsers,
   registerUser,
+  findByEmail,
 };
