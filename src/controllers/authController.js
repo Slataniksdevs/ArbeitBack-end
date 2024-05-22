@@ -19,6 +19,12 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = (req, res, next) => {
+  res.clearCookie("jwt");
+  res.json({ message: "Sesión finalizada exitosamente" });
+};
+
 module.exports = {
   login,
+  logout,
 };
