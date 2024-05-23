@@ -6,8 +6,6 @@ const getAllUsers = async () => {
 
     connection.query(query, (err, result) => {
       if (err) return reject(err);
-      if (result.length === 0)
-        return reject(new Error("No se encontró ningún usuario"));
 
       resolve(result);
     });

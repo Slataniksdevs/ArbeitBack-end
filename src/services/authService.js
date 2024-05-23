@@ -1,17 +1,13 @@
-const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const userService = require("./userService");
 
 const login = async (userData) => {
   try {
     const result = await userService.findByEmail(userData);
-    const isPasswordValid = await bcryptjs.compare(
-      userData.contrasena,
-      result[0].contrasena
-    );
+    console.log(result);
 
-    if (result.length === 0 || !isPasswordValid)
-      throw new Error("Correo electrónico y/o contraseña incorrectas");
+    if (!result)
+      throw new Error("Correo electrónico y/o contraseña incorrectos");
 
     // Crear el jwt
     const token = jwt.sign({ id: result[0].ID }, process.env.JWT_SECRET, {

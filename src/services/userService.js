@@ -1,8 +1,12 @@
+const bcryptjs = require("bcryptjs");
 const User = require("../models/User");
 
 const getAllUsers = async () => {
   try {
-    return await User.getAllUsers();
+    const result = await User.getAllUsers();
+    if (result.length === 0) throw new Error("No se encontró ningún usuario");
+
+    return result;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -30,7 +34,16 @@ const getOneUser = async (userId) => {
 // Autenticación de usuario
 const findByEmail = async (userData) => {
   try {
-    return await User.findByEmail(userData);
+    const result = await User.findByEmail(userData);
+    if (result.length === 0) throw new Error("Correo electrónico incorrecto");
+
+    const isPasswordValid = await bcryptjs.compare(
+      userData.contrasena,
+      result[0].contrasena
+    );
+    if (!isPasswordValid) throw new Error("Contraseña incorrecta");
+
+    return result;
   } catch (error) {
     throw new Error(`Error al iniciar sesión: ${error.message}`);
   }
