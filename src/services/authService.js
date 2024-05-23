@@ -6,9 +6,6 @@ const login = async (userData) => {
     const result = await userService.findByEmail(userData);
     console.log(result);
 
-    if (!result)
-      throw new Error("Correo electrónico y/o contraseña incorrectos");
-
     // Crear el jwt
     const token = jwt.sign({ id: result[0].ID }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_TIME_EXPIRE,
